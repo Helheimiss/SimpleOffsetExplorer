@@ -3,7 +3,7 @@
 
 #include <windows.h>
 
-BOOL ReadMem(const char* processName, unsigned int offsets[], int offsetCount, void* outBuffer, size_t size);
-BOOL WriteMem(const char* processName, unsigned int offsets[], int offsetCount, void* newValue, size_t size);
+BOOL ReadMem(const char* processName, const unsigned int offsets[], int offsetCount, void* outBuffer, size_t size);
+BOOL WriteMem(const char* processName, const unsigned int offsets[], int offsetCount, const void* newValue, size_t size);
 
 #endif
