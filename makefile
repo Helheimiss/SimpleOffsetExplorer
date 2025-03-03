@@ -1,5 +1,5 @@
 CC = gcc
-ARCH = 32
+ARCH = 64
 SRC = ./src/SimpleOffsetExplorer.c
 OUT = SimpleOffsetExplorer.o
 
@@ -11,6 +11,9 @@ else ifeq ($(ARCH), 32)
 else
     $(error Unknown architecture use ARCH=64 or ARCH=32: $(ARCH))
 endif
+
+
+$(shell mkdir -p bin)
 
 
 $(TARGET) : $(OUT)

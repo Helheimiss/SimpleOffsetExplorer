@@ -1,3 +1,5 @@
+#include "../include/SimpleOffsetExplorer.h"
+
 #include <windows.h>
 #include <stdio.h>
 #include <tlhelp32.h>
