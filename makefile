@@ -1,7 +1,16 @@
 CC = gcc
+ARCH = 32
 SRC = ./src/SimpleOffsetExplorer.c
-TARGET = SimpleOffsetExplorer.a
 OUT = SimpleOffsetExplorer.o
+
+
+ifeq ($(ARCH), 64)
+    TARGET = SimpleOffsetExplorerx64.a
+else ifeq ($(ARCH), 32)
+    TARGET = SimpleOffsetExplorerx32.a
+else
+    $(error Unknown architecture use ARCH=64 or ARCH=32: $(ARCH))
+endif
 
 
 $(TARGET) : $(OUT)
@@ -9,7 +18,8 @@ $(TARGET) : $(OUT)
 
 
 $(OUT) : $(SRC)
-	$(CC) -c $(SRC) -o ./bin/$(OUT)
+	$(CC) -m$(ARCH) -c $(SRC) -o ./bin/$(OUT)
+
 
 all : $(TARGET)
 
