@@ -9,8 +9,8 @@ BOOL WriteMem(const char* processName, unsigned int offsets[], int offsetCount, 
 BOOL ReadMemEx(const char* processName, const char* moduleName, unsigned int offsets[], int offsetCount, void* outBuffer, size_t size);
 BOOL WriteMemEx(const char* processName, const char* moduleName, unsigned int offsets[], int offsetCount, void* newValue, size_t size);
 
-void ToggleInterface(const char *iface_name, int enable);
-void BlockPort(int port, const char* direction);
-void UnblockPort(int port);
+BOOL ToggleInterface(const char *iface_name, int enable);
+BOOL BlockPort(int port, const char* direction);
+BOOL UnblockPort(int port);
 
 #endif

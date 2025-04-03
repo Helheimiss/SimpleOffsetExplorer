@@ -126,7 +126,8 @@ BOOL WriteMemEx(const char* processName, const char* moduleName, unsigned int of
     return result;
 }
 
-void ToggleInterface(const char *iface_name, int enable)
+
+BOOL ToggleInterface(const char *iface_name, int enable)
 {
     char cmd[256];
     int result;
@@ -139,11 +140,13 @@ void ToggleInterface(const char *iface_name, int enable)
     
     result = system(cmd);
     if (result != 0) {
-        fprintf(stderr, "Error toggling interface %s\n", iface_name);
+        return 0;
     }
+
+    return 1;
 }
 
-void BlockPort(int port, const char* direction)
+BOOL BlockPort(int port, const char* direction)
 {
     char cmd[256];
     int result;
@@ -160,11 +163,13 @@ void BlockPort(int port, const char* direction)
     
     result = system(cmd);
     if (result != 0) {
-        fprintf(stderr, "Error blocking port %d\n", port);
+        return 0;
     }
+
+    return 1;
 }
 
-void UnblockPort(int port)
+BOOL UnblockPort(int port)
 {
     char cmd[256];
     int result;
@@ -177,7 +182,9 @@ void UnblockPort(int port)
     
     result = system(cmd);
     if (result != 0) {
-        fprintf(stderr, "Error unblocking port %d\n", port);
+        return 0;
     }
+
+    return 1;
 }
 // =====================================================================END MAIN=====================================================================
