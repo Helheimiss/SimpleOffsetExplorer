@@ -2,8 +2,8 @@
 
 #include <windows.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <tlhelp32.h>
-#include <stdint.h>
 
 
 DWORD GetProcessIdByName(const char* processName) {
@@ -94,7 +94,7 @@ static BOOL OpenProcessAndResolveAddress(const char* processName, const char* mo
     return TRUE;
 }
 
-
+// ====================================================================START MAIN====================================================================
 BOOL ReadMem(const char* processName, unsigned int offsets[], int offsetCount, void* outBuffer, size_t size) {
     return ReadMemEx(processName, NULL, offsets, offsetCount, outBuffer, size);
 }
@@ -125,3 +125,59 @@ BOOL WriteMemEx(const char* processName, const char* moduleName, unsigned int of
     CloseHandle(hProcess);
     return result;
 }
+
+void ToggleInterface(const char *iface_name, int enable)
+{
+    char cmd[256];
+    int result;
+    
+    
+    snprintf(cmd, sizeof(cmd), 
+        "netsh interface set interface \"%s\" admin=%s",
+        iface_name, 
+        enable ? "enable" : "disable");
+    
+    result = system(cmd);
+    if (result != 0) {
+        fprintf(stderr, "Error toggling interface %s\n", iface_name);
+    }
+}
+
+void BlockPort(int port, const char* direction)
+{
+    char cmd[256];
+    int result;
+    
+    
+    snprintf(cmd, sizeof(cmd), 
+        "netsh advfirewall firewall add rule "
+        "name=\"TempBlock%d\" "
+        "dir=%s "
+        "protocol=TCP "
+        "remoteport=%d "
+        "action=block",
+        port, direction, port);
+    
+    result = system(cmd);
+    if (result != 0) {
+        fprintf(stderr, "Error blocking port %d\n", port);
+    }
+}
+
+void UnblockPort(int port)
+{
+    char cmd[256];
+    int result;
+    
+    
+    snprintf(cmd, sizeof(cmd), 
+        "netsh advfirewall firewall delete rule "
+        "name=\"TempBlock%d\"",
+        port);
+    
+    result = system(cmd);
+    if (result != 0) {
+        fprintf(stderr, "Error unblocking port %d\n", port);
+    }
+}
+// =====================================================================END MAIN=====================================================================
