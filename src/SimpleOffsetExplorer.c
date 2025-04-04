@@ -129,7 +129,6 @@ BOOL WriteMemEx(const char* processName, const char* moduleName, unsigned int of
 
 BOOL ToggleInterface(int enable)
 {
-    char cmd[256];
     int result;
     
     if (enable) 
@@ -143,9 +142,7 @@ BOOL ToggleInterface(int enable)
 
 
     if (result != 0) 
-    {
         return 0;
-    }
 
     return 1;
 }
@@ -164,9 +161,9 @@ BOOL ToggleInterface_IfaceName(const char *iface_name, int enable)
         enable ? "enable" : "disable");
     
     result = system(cmd);
-    if (result != 0) {
+    if (result != 0)
         return 0;
-    }
+
 
     return 1;
 }
@@ -187,9 +184,9 @@ BOOL BlockPort(int port, const char* direction)
         port, direction, port);
     
     result = system(cmd);
-    if (result != 0) {
+    if (result != 0) 
         return 0;
-    }
+    
 
     return 1;
 }
@@ -206,9 +203,9 @@ BOOL UnblockPort(int port)
         port);
     
     result = system(cmd);
-    if (result != 0) {
+    if (result != 0)
         return 0;
-    }
+    
 
     return 1;
 }

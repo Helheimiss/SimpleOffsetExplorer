@@ -63,7 +63,14 @@ int port = 8080;
 ```
 ### ToggleInterface
 ```
-BOOL ToggleInterface(
+BOOL ToggleInterface(int enable); // 1 or 0
+
+ToggleInterface(0); // Turn off
+ToggleInterface(1); // Turn on
+```
+### ToggleInterface_IfaceName
+```
+BOOL ToggleInterface_IfaceName(
     const char *iface_name,
     int enable /*1 or 0*/
 );
