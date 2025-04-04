@@ -127,7 +127,32 @@ BOOL WriteMemEx(const char* processName, const char* moduleName, unsigned int of
 }
 
 
-BOOL ToggleInterface(const char *iface_name, int enable)
+BOOL ToggleInterface(int enable)
+{
+    char cmd[256];
+    int result;
+    
+    if (enable) 
+    {
+        result = system("netsh advfirewall firewall add rule name=\"LagSwitch\" dir=out action=block protocol=any enable=yes");
+    }
+    else if (enable == 0) 
+    {
+        result = system("netsh advfirewall firewall delete rule name=\"LagSwitch\"");
+    }
+
+
+    if (result != 0) 
+    {
+        return 0;
+    }
+
+    return 1;
+}
+
+
+
+BOOL ToggleInterface_IfaceName(const char *iface_name, int enable)
 {
     char cmd[256];
     int result;
